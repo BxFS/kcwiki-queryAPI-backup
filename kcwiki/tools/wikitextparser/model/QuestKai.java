@@ -10,10 +10,10 @@ import java.util.List;
  * 
  */
 public class QuestKai {
-    private String type;
+    private int rep_type;
     private int category;
+    private int game_id;
     private String wiki_id;
-    private String game_id;
     private List<String> prereqs;
     private List<String> unlocks;
     private MultiLanguageEntry titles;
@@ -21,17 +21,12 @@ public class QuestKai {
     private MultiLanguageEntry note;
     private RewardEntity rewards;
     
-    public QuestKai() {
-        this.type = "";
-        this.category = -1;
-        this.wiki_id = "";
-        this.game_id = "";
-        this.prereqs = new ArrayList<String>();
-        this.unlocks = new ArrayList<String>();
-        this.titles = new MultiLanguageEntry();
-        this.descriptions = new MultiLanguageEntry();
-        this.note = new MultiLanguageEntry();
-        this.rewards = new RewardEntity();
+    public enum RepType {
+      d,w,m,onetime
+    }
+    
+    public enum Category {
+      A,B,C,D,E,F
     }
     
     public static class RewardEntity {
@@ -47,6 +42,48 @@ public class QuestKai {
         private List<EquipmentEntity> equipments;
         private List<ItemEntity> items;
         
+        public static class EquipmentEntity {
+          private int id;
+          private int amount;
+          
+          public EquipmentEntity(int id, int amount) {
+              this.id = id;
+              this.amount = amount;
+          }
+          
+          public void setId(int id) {
+            this.id = id;
+          }
+
+          public void setAmount(int amount) {
+            this.amount = amount;
+          }
+
+          public int getId() {
+              return this.id;
+          }
+          
+          public int getAmount() {
+              return this.amount;
+          }
+        }
+        public static class ItemEntity extends EquipmentEntity{
+          private boolean purchasable;
+          
+          public ItemEntity(int id, int amount, boolean purchasable) {
+            super(id, amount);
+            this.purchasable = purchasable;
+          }
+          
+          public void setPurchasable(boolean purchasable) {
+            this.purchasable = purchasable;
+          }
+
+          public boolean getPurchasable() {
+            return this.purchasable;
+          }
+        }
+        
         public RewardEntity() {
             this.fuel = 0;
             this.ammo = 0;
@@ -61,6 +98,7 @@ public class QuestKai {
             this.items = new ArrayList<ItemEntity>();
             
         }
+        
         
         public int getFuel() {
           return fuel;
@@ -150,49 +188,121 @@ public class QuestKai {
           this.items = items;
         }
         
-        public static class EquipmentEntity {
-            private int id;
-            private int amount;
-            
-            public EquipmentEntity(int id, int amount) {
-                this.id = id;
-                this.amount = amount;
-            }
-            
-            public void setId(int id) {
-              this.id = id;
-            }
-
-            public void setAmount(int amount) {
-              this.amount = amount;
-            }
-
-            public int getId() {
-                return this.id;
-            }
-            
-            public int getAmount() {
-                return this.amount;
-            }
-        }
         
-        public static class ItemEntity extends EquipmentEntity{
-            private boolean purchasable;
-            
-            public ItemEntity(int id, int amount, boolean purchasable) {
-                super(id, amount);
-                this.purchasable = purchasable;
-            }
-            
-            public void setPurchasable(boolean purchasable) {
-              this.purchasable = purchasable;
-            }
+    }
+    
+    
+    public QuestKai() {
+        this.rep_type = -1;
+        this.category = -1;
+        this.wiki_id = "";
+        this.game_id =  -1;
+        this.prereqs = new ArrayList<String>();
+        this.unlocks = new ArrayList<String>();
+        this.titles = new MultiLanguageEntry();
+        this.descriptions = new MultiLanguageEntry();
+        this.note = new MultiLanguageEntry();
+        this.rewards = new RewardEntity();
+    }
 
-            public boolean getPurchasable() {
-                return this.purchasable;
-            }
-        }
-        
+
+    public int getRepType() {
+      return rep_type;
+    }
+
+
+    public void setRepType(int rep_type) {
+      this.rep_type = rep_type;
+    }
+
+
+    public int getCategory() {
+      return category;
+    }
+
+
+    public void setCategory(int category) {
+      this.category = category;
+    }
+
+
+    public int getGameId() {
+      return game_id;
+    }
+
+
+    public void setGameId(int game_id) {
+      this.game_id = game_id;
+    }
+
+
+    public String getWikiId() {
+      return wiki_id;
+    }
+
+
+    public void setWikiId(String wiki_id) {
+      this.wiki_id = wiki_id;
+    }
+
+
+    public List<String> getPrereqs() {
+      return prereqs;
+    }
+
+
+    public void setPrereqs(List<String> prereqs) {
+      this.prereqs = prereqs;
+    }
+
+
+    public List<String> getUnlocks() {
+      return unlocks;
+    }
+
+
+    public void setUnlocks(List<String> unlocks) {
+      this.unlocks = unlocks;
+    }
+
+
+    public MultiLanguageEntry getTitles() {
+      return titles;
+    }
+
+
+    public void setTitles(MultiLanguageEntry titles) {
+      this.titles = titles;
+    }
+
+
+    public MultiLanguageEntry getDescriptions() {
+      return descriptions;
+    }
+
+
+    public void setDescriptions(MultiLanguageEntry descriptions) {
+      this.descriptions = descriptions;
+    }
+
+
+    public MultiLanguageEntry getNote() {
+      return note;
+    }
+
+
+    public void setNote(MultiLanguageEntry note) {
+      this.note = note;
+    }
+
+
+    public RewardEntity getRewards() {
+      return rewards;
+    }
+
+
+    public void setRewards(RewardEntity rewards) {
+      this.rewards = rewards;
     }
     
 
